@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useRef } from 'react';
 import { api } from '../lib/api';
 import { Server, ConnectionState, ConnectionData } from '../types';
-import { useAuth } from './AuthContext';
 
 interface VPNContextType {
   servers: Server[];
@@ -18,7 +17,6 @@ interface VPNContextType {
 const VPNContext = createContext<VPNContextType | undefined>(undefined);
 
 export const VPNProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user } = useAuth();
   const [servers, setServers] = useState<Server[]>([]);
   const [connectionState, setConnectionState] = useState<ConnectionState>(ConnectionState.DISCONNECTED);
   const [connectionData, setConnectionData] = useState<ConnectionData | null>(null);
@@ -64,11 +62,9 @@ export const VPNProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   useEffect(() => {
-    if (user) {
-      loadServers();
-      checkStatus();
-    }
-  }, [user]);
+    loadServers();
+    checkStatus();
+  }, []);
 
   // Timer effect
   useEffect(() => {

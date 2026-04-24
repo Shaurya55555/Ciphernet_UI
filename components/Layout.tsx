@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Shield, Settings, LogOut } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { Shield, Settings } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
-  const { logout, user } = useAuth();
 
   const navItems = [
     { icon: Shield, label: 'Dashboard', path: '/' },
@@ -44,18 +42,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           </nav>
         </div>
 
-        <div className="pt-4 mt-4 border-t border-border">
-          <div className="px-3 py-2">
-             <div className="text-xs font-medium text-secondary mb-1">Signed in as</div>
-             <div className="text-sm font-medium truncate">{user?.username}</div>
-          </div>
-          <button
-            onClick={logout}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-secondary hover:text-accent-red hover:bg-accent-red/10 transition-colors mt-2"
-          >
-            <LogOut size={18} />
-            Sign Out
-          </button>
+        <div className="pt-4 mt-4 border-t border-border text-xs text-secondary px-3">
+          Local access mode
         </div>
       </aside>
 
